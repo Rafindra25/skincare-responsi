@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsive Product Design</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <section class="products">
+        <h2>Flash Sale</h2>
+        <div class="all-products">
+            <div class="product">
+                <img src="kahf5.webp">
+                <div class="product-info">
+                    <h4 class="product-title">Kahf Parfume</h4>
+                    <p class="product-price">Rp 5.000</p>
+                    <form onsubmit="handleSubmit(event)">
+                        <input type="hidden" name="product" value="Kahf Parfume - Rp 5.000">
+                        <button type="submit" class="product-btn">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product">
+                <img src="khaf3.jpg">
+                <div class="product-info">
+                    <h4 class="product-title">Face Wash</h4>
+                    <p class="product-price">Rp 2.000</p>
+                    <form onsubmit="handleSubmit(event)">
+                        <input type="hidden" name="product" value="Face Wash - Rp 2.000">
+                        <button type="submit" class="product-btn">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product">
+                <img src="khaf4.jpeg">
+                <div class="product-info">
+                    <h4 class="product-title">Soap</h4>
+                    <p class="product-price">Rp 2.500</p>
+                    <form onsubmit="handleSubmit(event)">
+                        <input type="hidden" name="product" value="Soap - Rp 2.500">
+                        <button type="submit" class="product-btn">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product">
+                <img src="khaf2.jpg">
+                <div class="product-info">
+                    <h4 class="product-title">Toner</h4>
+                    <p class="product-price">Rp 8.000</p>
+                    <form onsubmit="handleSubmit(event)">
+                        <input type="hidden" name="product" value="Toner - Rp 8.000">
+                        <button type="submit" class="product-btn">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('save.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terjadi kesalahan!',
+                    confirmButtonText: 'OK'
+                });
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
